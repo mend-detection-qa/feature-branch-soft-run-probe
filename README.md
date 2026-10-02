@@ -42,8 +42,15 @@ updated the base project exactly like a base scan. The point is not what the sca
 - `index.js` — a real call site for `lodash.merge`, so the `enableReachability` case is
   meaningful rather than vacuous.
 - `feature.js` (on `feature-branch` only) — the content diff that makes the branch
-  eligible: Mend only selects feature branches with an open PR to a base branch, and a
-  branch with zero diff cannot have one.
+  eligible (Mend only selects feature branches with an open PR to a base branch), and a
+  call site for `minimist`.
+- **Inventory difference on `feature-branch`:** `package.json` / `package-lock.json` add
+  `minimist@1.2.5` (vulnerable, CVE-2021-44906, reachable via `feature.js`) and
+  `ms@2.1.3` (clean). `main` resolves 1 library; `feature-branch` resolves 3. The
+  feature-branch scan must report all 3 and the new finding, while the base project's
+  inventory and KPIs stay at what the `main` scan produced — a soft run must not move
+  them. Without this difference an unchanged count would be indistinguishable from a
+  feature scan wrongly applied to the base project.
 
 ## Mend config
 
