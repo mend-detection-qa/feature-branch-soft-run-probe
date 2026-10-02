@@ -14,9 +14,10 @@
     "dependency_tree": {
       "check_dependency_tree_detection_status": true,
       "check_update_request_sca_results": true,
-      "expected_total_dependencies_number": {"gte": 1},
-      "expected_direct_dependencies_number": {"eq": 1},
-      "direct_dependencies_names_list_group_id": {"eq": ["lodash"]},
+      "expected_total_dependencies_number": {"gte": 3},
+      "expected_direct_dependencies_number": {"eq": 3},
+      "direct_dependencies_names_list_group_id": {"eq": ["lodash", "minimist", "ms"]},
+      "_comment_inventory": "These describe the FEATURE-BRANCH scan (branch: feature-branch), which adds minimist + ms on top of main's lodash. The base project (main) must stay at 1 library -- that is asserted by feature_branch_isolation.check_project_unchanged (generalStatistics.libraries, vulnerabilities.*, scaReachableVulnerabilities.*).",
       "expected_package_managers": {"contains": ["npm"]}
     },
 
