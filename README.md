@@ -45,12 +45,13 @@ updated the base project exactly like a base scan. The point is not what the sca
   eligible (Mend only selects feature branches with an open PR to a base branch), and a
   call site for `minimist`.
 - **Inventory difference on `feature-branch`:** `package.json` / `package-lock.json` add
-  `minimist@1.2.5` (vulnerable, CVE-2021-44906, reachable via `feature.js`) and
-  `ms@2.1.3` (clean). `main` resolves 1 library; `feature-branch` resolves 3. The
-  feature-branch scan must report all 3 and the new finding, while the base project's
-  inventory and KPIs stay at what the `main` scan produced — a soft run must not move
-  them. Without this difference an unchanged count would be indistinguishable from a
-  feature scan wrongly applied to the base project.
+  nine direct dependencies at known-vulnerable versions -- `minimist@1.2.5`, `ms@2.1.3`,
+  `express@4.17.1`, `axios@0.21.1`, `jsonwebtoken@8.5.1`, `node-fetch@2.6.0`,
+  `moment@2.29.1`, `underscore@1.12.0`, `handlebars@4.7.6` -- each called from
+  `feature.js`. `main` resolves 1 library; `feature-branch` resolves 76 (npm audit: 15
+  vulnerable, 3 critical / 9 high / 3 low). The feature-branch scan must report them,
+  while the base project's inventory and KPIs stay at what the `main` scan produced. A
+  feature scan wrongly applied to the base project shows up as 1 -> ~76 libraries.
 
 ## Mend config
 
